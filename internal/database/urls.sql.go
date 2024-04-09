@@ -13,6 +13,7 @@ import (
 )
 
 const createURL = `-- name: CreateURL :one
+
 INSERT INTO urls(id, created_at, updated_at, original_url, tiny_url)
 VALUES ($1, $2, $3, $4, $5)
 RETURNING id, created_at, updated_at, original_url, tiny_url
@@ -42,5 +43,22 @@ func (q *Queries) CreateURL(ctx context.Context, arg CreateURLParams) (Url, erro
 		&i.OriginalUrl,
 		&i.TinyUrl,
 	)
+	return i, err
+}
+
+const getUrlByTyniUrl = `-- name: GetUrlByTyniUrl :one
+
+SELECT
+FROM urls
+WHERE tiny_url = $1
+`
+
+type GetUrlByTyniUrlRow struct {
+}
+
+func (q *Queries) GetUrlByTyniUrl(ctx context.Context, tinyUrl string) (GetUrlByTyniUrlRow, error) {
+	row := q.db.QueryRowContext(ctx, getUrlByTyniUrl, tinyUrl)
+	var i GetUrlByTyniUrlRow
+	err := row.Scan()
 	return i, err
 }
