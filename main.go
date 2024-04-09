@@ -57,6 +57,7 @@ func main(){
 
 	v1Router := chi.NewRouter()
 	v1Router.Post("/urls", apiCfg.handlerCreateNewUrl)
+	router.Get("/{url}", apiCfg.handlerRedirectToUrl)
 	router.Mount("/v1", v1Router)
 
 	server := &http.Server{

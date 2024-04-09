@@ -6,6 +6,6 @@ RETURNING *;
 
 -- name: GetUrlByTyniUrl :one
 
-SELECT
+SELECT *
 FROM urls
 WHERE tiny_url = $1;

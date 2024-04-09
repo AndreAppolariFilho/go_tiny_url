@@ -48,17 +48,20 @@ func (q *Queries) CreateURL(ctx context.Context, arg CreateURLParams) (Url, erro
 
 const getUrlByTyniUrl = `-- name: GetUrlByTyniUrl :one
 
-SELECT
+SELECT id, created_at, updated_at, original_url, tiny_url
 FROM urls
 WHERE tiny_url = $1
 `
 
-type GetUrlByTyniUrlRow struct {
-}
-
-func (q *Queries) GetUrlByTyniUrl(ctx context.Context, tinyUrl string) (GetUrlByTyniUrlRow, error) {
+func (q *Queries) GetUrlByTyniUrl(ctx context.Context, tinyUrl string) (Url, error) {
 	row := q.db.QueryRowContext(ctx, getUrlByTyniUrl, tinyUrl)
-	var i GetUrlByTyniUrlRow
-	err := row.Scan()
+	var i Url
+	err := row.Scan(
+		&i.ID,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.OriginalUrl,
+		&i.TinyUrl,
+	)
 	return i, err
 }
