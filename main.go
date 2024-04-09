@@ -1,16 +1,7 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/AndreAppolariFilho/go_tiny_url/internal/database"
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/cors"
-	"github.com/joho/godotenv"
 )
 
 type apiConfig struct {
@@ -18,6 +9,7 @@ type apiConfig struct {
 }
 
 func main(){
+	/*
 	godotenv.Load(".env")
 	portString := os.Getenv("PORT")
 	if portString == ""{
@@ -36,12 +28,13 @@ func main(){
 	if err != nil {
 		log.Fatal("Can't connect to the database:", err)
 	}
-
-	queries := database.New(conn)
+	*/
+	//queries := database.New(conn)
 
 	/*apiCfg := apiConfig{
 		DB: queries,
 	}*/
+	/*
 	router := chi.NewRouter()
 	router.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"https://*", "http://*"},
@@ -67,4 +60,5 @@ func main(){
 	if err != nil {
 		log.Fatal(err)
 	}
+	*/
 }
